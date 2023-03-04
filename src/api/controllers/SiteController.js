@@ -1,6 +1,6 @@
-const Shoe = require("../Models/shoe");
-const { multipleMongooseToObj } = require("../../util/mongoose");
-// require('../../dotenv').config();
+const Shoe = require("../models/shoe");
+const { multipleMongooseToObj } = require("../services/mongoose");
+
 class SiteController {
   // [Get =&gt; news]
   index(req, res, next) {
