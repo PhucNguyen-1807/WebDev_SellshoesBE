@@ -6,8 +6,11 @@ require("dotenv").config();
 const { connectDb } = require("./src/api/config/db.config");
 
 const app = express()
-app.use(express.json());
 const port = 3000
+
+app.use(methodOverride('_method')) 
+app.use(express.urlencoded({extended:true}))
+app.use(express.json()) 
 
 connectDb();
 
