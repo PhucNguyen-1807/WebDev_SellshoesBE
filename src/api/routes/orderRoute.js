@@ -1,8 +1,9 @@
 const router = require("express").Router();
-const orderController = require("../controllers/order.controller");
-const { decodeToken } = require("../middlewares/decodeToken");
+const orderController = require("../controllers/orderController");
+const { verifyToken } = require("../middlewares/verifyToken");
 
-router.post("/addToOrder", decodeToken, orderController.addToOrder);
-router.get("/", decodeToken, orderController.readOrder)
+router.post("/addToOrder", verifyToken, orderController.addToOrder);
+router.post("/removeFromCart", verifyToken, orderController.removeFromCart);
+router.get("/", verifyToken, orderController.readOrder)
 
 module.exports = router;

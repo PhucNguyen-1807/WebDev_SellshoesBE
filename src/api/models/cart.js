@@ -2,12 +2,15 @@ const mongoose = require("mongoose");
 
 const CartSchema = new mongoose.Schema(
   {
-    userId: { type: mongoose.Schema.Types.ObjectId, require: true },
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      require: true
+    },
     shoeId: {
       type: mongoose.Schema.Types.ObjectId,
       require: true,
     },
-    quantity: {
+    count: {
       type: Number,
       default: 1,
     },

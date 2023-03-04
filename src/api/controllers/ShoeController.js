@@ -16,7 +16,7 @@ class ShoeController {
   // }
   // [POST] /shoes/store
   // store(req, res, next) {
-    
+
   //   const formData = req.body;
   //   console.log(formData)
   //   const shoe = new Shoe(formData);
@@ -42,13 +42,13 @@ class ShoeController {
       .then(() => res.redirect("/me/stored/shoes"))
       .catch(next);
   }
-// [DELETE] shoes/:id
+  // [DELETE] shoes/:id
   delete(req, res, next) {
     Shoe.deleteOne({ _id: req.params.id })
       .then(() => {
         console.log('deleted')
         res.redirect("back");
-    })
+      })
       .catch(next);
   }
 }
