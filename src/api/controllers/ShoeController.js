@@ -1,4 +1,5 @@
 const Shoe = require("../models/shoe");
+const { mongooseToObj } = require("../services/mongoose");
 const { multipleMongooseToObj } = require("../services/mongoose");
 class ShoeController {
   //[CREATE] shoes/create
@@ -21,12 +22,13 @@ class ShoeController {
   // [GET] /shoes/all-shoes
   read(req, res, next) {
     Shoe.find({})
-    .then((shoes) => {
-      shoes = multipleMongooseToObj(shoes);
-      res.status(200).json(shoes)
-    })
-    .catch(err=>res.status(404).json('Not Found'));
+      .then((shoes) => {
+        shoes = multipleMongooseToObj(shoes);
+        res.status(200).json(shoes);
+      })
+      .catch((err) => res.status(404).json("Not Found"));
   }
+  // [PUT] shoes/:id
   update(req, res, next) {
     if (!req.file) {
       next(new Error("No file uploaded!"));
@@ -50,11 +52,11 @@ class ShoeController {
 
   // [GET] /shoes/:id
   show(req, res, next) {
-    Shoe.findOne({ slug: req.params._id })
+    Shoe.findOne({ _id: req.params.id })
       .then((shoe) => {
         res.status(200).json(mongooseToObj(shoe));
       })
-      .catch(err=> res.status(404).json('Not Found'));
+      .catch((err) => res.status(404).json("Not Found"));
   }
 }
 module.exports = new ShoeController();

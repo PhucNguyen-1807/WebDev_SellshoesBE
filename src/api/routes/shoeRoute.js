@@ -5,11 +5,11 @@ const fileUploader = require('../configs/cloudinary.config');
 const {verifyToken} = require("../middlewares/verifyToken");
 const {verifyAdmin} = require("../middlewares/verifyAmin");
 
-//Read
-router.get('/:id', shoeController.show);
-
 //Read all
 router.get('/all-shoes', shoeController.read);
+
+//Read
+router.get('/:id', shoeController.show);
 
 //Admin role
 //Create
