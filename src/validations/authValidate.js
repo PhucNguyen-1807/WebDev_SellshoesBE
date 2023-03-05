@@ -20,7 +20,7 @@ const schema = {
         phone: Joi.number().required(),
         address: Joi.string().required(),
         fullname: Joi.string().min(5).max(30).required(),
-        role: Joi.bool().required(),
+        role: Joi.bool(),
     }), 
     login: Joi.object({
         email: Joi.string().email().min(10).required(),

@@ -11,15 +11,11 @@ const api = require('./src/api/routes/index')
 const PORT = 3000;
 connectDatabase();
 
-
 app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-//app.use(methodOverride('_method')) 
-
-
-
+// app.use(methodOverride('_method')) 
 
 app.use('/v1', api);
 
