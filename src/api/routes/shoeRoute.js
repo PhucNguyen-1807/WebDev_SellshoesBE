@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const shoeController = require("../controllers/shoeController");
+const shoeController = require("../controllers/ShoeController");
 const fileUploader = require('../configs/cloudinary.config');
 const {verifyToken} = require("../middlewares/verifyToken");
 const {verifyAdmin} = require("../middlewares/verifyAmin");
