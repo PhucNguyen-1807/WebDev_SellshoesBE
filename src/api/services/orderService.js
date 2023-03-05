@@ -41,10 +41,19 @@ module.exports = {
     },
     readOrder: async (userId) => {
         const ORDER = await Order.find({ userId: userId });
-        return {
-            message: "",
-            data: ORDER,
-            statusCode: 200,
+        if (!ORDER) {
+            return {
+                message: "this order is null",
+                data: null,
+                statusCode: 400,
+            }
+        }
+        else {
+            return {
+                message: "",
+                data: ORDER,
+                statusCode: 200,
+            }
         }
     },
     removeFromCart: async (userId, shoeId, Count) => {

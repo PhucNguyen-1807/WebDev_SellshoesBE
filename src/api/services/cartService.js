@@ -93,10 +93,19 @@ module.exports = {
     },
     readCart: async (userId) => {
         const CART = await Cart.find({ userId: userId });
-        return {
-            message: "",
-            data: CART,
-            statusCode: 200,
+        if (!CART) {
+            return {
+                message: "cart is empty",
+                data: null,
+                statusCode: 400,
+            }
+        }
+        else {
+            return {
+                message: "",
+                data: CART,
+                statusCode: 200,
+            }
         }
     }
 }
