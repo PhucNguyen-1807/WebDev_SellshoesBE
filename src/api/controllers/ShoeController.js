@@ -1,4 +1,4 @@
-const Shoe = require("../Models/shoe");
+const Shoe = require("../models/shoe");
 const { mongooseToObj } = require("../services/mongoose");
 const { multipleMongooseToObj } = require("../services/mongoose");
 class ShoeController {

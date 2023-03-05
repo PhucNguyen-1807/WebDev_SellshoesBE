@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const fileUploader = require('../config/cloudinary/cloudinary.config');
+const fileUploader = require('../configs/cloudinary.config');
 const shoeController = require("../controllers/ShoeController");
 
 router.post('/create',fileUploader.single('image'),shoeController.create)
