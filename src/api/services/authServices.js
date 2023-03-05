@@ -102,6 +102,7 @@ module.exports = {
                     return {
                         error: false,
                         msg: 'Login success!',
+                        data: filterUser[0].role,
                         token: {
                             accessToken,
                             refreshToken,
