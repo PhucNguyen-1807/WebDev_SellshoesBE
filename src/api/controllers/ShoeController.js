@@ -1,50 +1,60 @@
 const Shoe = require("../models/shoe");
-const { mongooseToObj } = require("../services/mongoose");
-// var {filePath}=require("../../routes/upload")
-
+const { multipleMongooseToObj } = require("../services/mongoose");
 class ShoeController {
-  show(req, res, next) {
-    Shoe.findOne({ slug: req.params.slug })
-      .then((shoe) => {
-        res.render("shoes/show", { shoe: mongooseToObj(shoe) });
-      })
-      .catch(next);
-  }
+  //[CREATE] shoes/create
   create(req, res, next) {
-    res.render("shoes/create");
-  }
-  store(req, res, next) {
+    if (!req.file) {
+      next(new Error("No file uploaded!"));
+      res.status(404);
+      return;
+    }
     const formData = req.body;
-    console.log(formData)
+    formData.image = req.file.path;
     const shoe = new Shoe(formData);
-    shoe.save()
+    shoe
+      .save()
       .then(() => {
-        console.log("save successfully");
-        res.redirect("/");
+        res.status(200).json("success");
       })
-      .catch(next);
+      .catch((err) => res.status(404));
   }
-  edit(req, res, next) {
-    Shoe.findById(req.params.id)
-      .then((shoe) =>
-        res.render("shoes/edit", {
-          shoe: mongooseToObj(shoe),
-        })
-      )
-      .catch(next);
+  // [GET] /shoes/all-shoes
+  read(req, res, next) {
+    Shoe.find({})
+    .then((shoes) => {
+      shoes = multipleMongooseToObj(shoes);
+      res.status(200).json(shoes)
+    })
+    .catch(err=>res.status(404).json('Not Found'));
   }
   update(req, res, next) {
-    Shoe.updateOne({ _id: req.params.id }, req.body)
-      .then(() => res.redirect("/me/stored/shoes"))
+    if (!req.file) {
+      next(new Error("No file uploaded!"));
+      res.status(404);
+      return;
+    }
+    const formData = req.body;
+    formData.image = req.file.path;
+    Shoe.updateOne({ _id: req.params.id }, formData)
+      .then(() => res.status(200).redirect("/"))
       .catch(next);
   }
+  // [DELETE] shoes/:id
   delete(req, res, next) {
     Shoe.deleteOne({ _id: req.params.id })
       .then(() => {
-        console.log('deleted')
-        res.redirect("back");
-    })
+        res.status(200).json("deleted").redirect("back");
+      })
       .catch(next);
+  }
+
+  // [GET] /shoes/:id
+  show(req, res, next) {
+    Shoe.findOne({ slug: req.params._id })
+      .then((shoe) => {
+        res.status(200).json(mongooseToObj(shoe));
+      })
+      .catch(err=> res.status(404).json('Not Found'));
   }
 }
 module.exports = new ShoeController();
