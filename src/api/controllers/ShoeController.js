@@ -12,8 +12,7 @@ class ShoeController {
     const formData = req.body;
     formData.image = req.file.path;
     const shoe = new Shoe(formData);
-    shoe
-      .save()
+    shoe.save()
       .then(() => {
         res.status(200).json("success");
       })
