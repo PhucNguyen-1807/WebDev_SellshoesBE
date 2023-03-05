@@ -1,8 +1,8 @@
 const Shoe = require("../models/shoe");
 const { mongooseToObj } = require("../services/mongoose");
 // var {filePath}=require("../../routes/upload")
+
 class ShoeController {
-  // [Get] /shoes/:slug
   show(req, res, next) {
     Shoe.findOne({ slug: req.params.slug })
       .then((shoe) => {
@@ -10,13 +10,10 @@ class ShoeController {
       })
       .catch(next);
   }
-  //[GET] /shoes/create
   create(req, res, next) {
     res.render("shoes/create");
   }
-  //[POST] /shoes/store
   store(req, res, next) {
-    
     const formData = req.body;
     console.log(formData)
     const shoe = new Shoe(formData);
@@ -36,13 +33,11 @@ class ShoeController {
       )
       .catch(next);
   }
-  // [PUT] shoes/:id
   update(req, res, next) {
     Shoe.updateOne({ _id: req.params.id }, req.body)
       .then(() => res.redirect("/me/stored/shoes"))
       .catch(next);
   }
-// [DELETE] shoes/:id
   delete(req, res, next) {
     Shoe.deleteOne({ _id: req.params.id })
       .then(() => {
